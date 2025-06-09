@@ -1,0 +1,29 @@
+modLoader = "javafml"
+loaderVersion = "[54,)"
+license = "MIT"
+issueTrackerURL = "https://github.com/AufCo/cleanhud/issues"
+
+[[mods]]
+modId = "cleanhud"
+version = "1.0.0"
+displayName = "Clean HUD"
+description = '''
+A configurable HUD mod that displays useful information like coordinates, FPS, biome, and more.
+Fully customizable labels, visibility, and display order.
+'''
+authors = "AufCo"
+displayURL = "https://github.com/AufCo/cleanhud"
+
+[[dependencies.cleanhud]]
+modId = "forge"
+mandatory = true
+versionRange = "[54.1.0,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.cleanhud]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.21.4,1.22)"
+ordering = "NONE"
+side = "BOTH"
