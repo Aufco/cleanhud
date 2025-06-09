@@ -18,7 +18,6 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.CustomizeGuiOverlayEvent;
-import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -141,25 +140,18 @@ public class HudOverlay {
         
         if (HudConfig.SHOW_PING.get()) {
             try {
-                if (mc.getConnection() != null && mc.getConnection().getConnection() != null) {
-                    // We're on a server
+                if (mc.getConnection() != null && mc.getConnection().getConnection() != null && !mc.hasSingleplayerServer()) {
+                    // We're on a server (not single player)
                     net.minecraft.client.multiplayer.PlayerInfo playerInfo = mc.getConnection().getPlayerInfo(player.getUUID());
                     if (playerInfo != null) {
                         int ping = playerInfo.getLatency();
                         String label = HudConfig.SHOW_PING_LABEL.get() ? HudConfig.PING_LABEL.get() + " " : "";
                         hudData.put("ping", label + ping + " ms");
-                    } else {
-                        String label = HudConfig.SHOW_PING_LABEL.get() ? HudConfig.PING_LABEL.get() + " " : "";
-                        hudData.put("ping", label + "0 ms");
                     }
-                } else {
-                    // Single player - don't show ping
-                    String label = HudConfig.SHOW_PING_LABEL.get() ? HudConfig.PING_LABEL.get() + " " : "";
-                    hudData.put("ping", label + "N/A");
                 }
+                // Don't show ping in single player at all
             } catch (Exception e) {
-                String label = HudConfig.SHOW_PING_LABEL.get() ? HudConfig.PING_LABEL.get() + " " : "";
-                hudData.put("ping", label + "N/A");
+                // Silently ignore errors
             }
         }
         
@@ -238,16 +230,4 @@ public class HudOverlay {
         }
     }
     
-    @SubscribeEvent
-    public static void onEntityJoinLevel(EntityJoinLevelEvent event) {
-        if (event.getLevel().isClientSide() && event.getEntity() instanceof LocalPlayer player) {
-            Minecraft mc = Minecraft.getInstance();
-            // Check if we're on a server (not single player)
-            boolean isOnServer = mc.getConnection() != null && !mc.hasSingleplayerServer();
-            
-            // Auto-enable ping when joining a server, disable when in single player
-            HudConfig.SHOW_PING.set(isOnServer);
-            HudConfig.SPEC.save();
-        }
-    }
 }
