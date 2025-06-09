@@ -16,7 +16,7 @@ A fully configurable HUD mod for Minecraft 1.21.4 Forge that displays useful inf
   - Pint
 
 ## Configuration
-
+```
 1. Turn any HUD element on or off
 2. Turn any HUD element label off 
 3. 16 Font Colors
@@ -38,3 +38,7 @@ Looking at: Stone
 Looking at: (123, 63, -275)
 Player Speed: 4.37 m/s
 ```
+
+## License
+
+This is free and unencumbered software released into the public domain. [LICENSE](LICENSE)
