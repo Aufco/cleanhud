@@ -1,0 +1,26 @@
+modLoader = "javafml"
+loaderVersion = "[54,)"
+license = "unlicense"
+
+[[mods]]
+modId = "cleanhud"
+version = "35"
+displayName = "Clean HUD"
+displayURL = "https://github.com/Aufco/cleanhud"
+logoFile = "cleanhud.png"
+authors = "Aufco"
+description = '''Adds configurable HUD elements like coordinates, FPS, biome, and more'''
+
+[[dependencies.cleanhud]]
+modId = "forge"
+mandatory = true
+versionRange = "[54,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.cleanhud]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.21.4,1.22)"
+ordering = "NONE"
+side = "BOTH"
